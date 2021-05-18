@@ -1,20 +1,25 @@
 PImage img;
 int pointCount = 100;
-int centCount = 3;
-int voxelSize = 10;
+int centCount = 2;
+int voxelSize = 20;
 
-int xMax = floor(width/voxelSize);
-int yMax = floor(height/voxelSize);
+int xMax, yMax;
 
 ArrayList<Column> columns;
 Point[] centroids = new Point[centCount];
 Point[][] points2d = new Point[500][500];
-int[][] pbn = new int[xMax][yMax];
+int[][] pbn;
+
 
 
 void setup() {
   frameRate(1);
   size(500, 500);
+
+  xMax = width/voxelSize;
+  yMax = height/voxelSize;
+  pbn = new int[xMax][yMax];
+
   img = loadImage("armin.jpg");
   img.resize(500, 0);
 
@@ -68,7 +73,6 @@ void draw() {
 
   //building pbn
   PBN();
-
 }
 
 void assign() {
@@ -116,7 +120,9 @@ void PBN() {
   //for each voxel, making the HashMap
   for (int x = 0; x < xMax; x++) {
     for (int y = 0; y < yMax; y++) {
+      
       color c = get(x * voxelSize, y * voxelSize);
+      
       if (!hm.containsKey(c)) {
         colCount++;
         hm.put(c, colCount);
@@ -124,11 +130,17 @@ void PBN() {
       pbn[x][y] = hm.get(c);
     }
   }
-  println(hm);
+
   for (int y = 0; y < pbn.length; y++) {
     for (int x = 0; x < pbn[0].length; x++) {
-      //print(pbn[x][y] + " ");
+      if (frameCount > 5 && colCount == centCount) {
+        print(pbn[x][y] + " ");
+      }
+      else{
+        println(colCount);
+      }
     }
     println();
   }
+  println();
 }
