@@ -15,3 +15,4 @@ This would occur normally by resetting the pixels on an image, but I wanted this
 To do this, I had to be able to change the resolution to any level I wanted. 
 To make a lower-resolution image without changing the image is simple. There are width or height/voxelSize (xMax, yMax) Voxels on this square resized image. In draw, an array of Voxel colors, creates a new column, and they are displayed as well. 
 
+The PBN array is used solely for the paintbot to know each color's locations in the matrix of Voxels. 
